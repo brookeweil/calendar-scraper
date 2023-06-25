@@ -1,24 +1,30 @@
 import './App.css';
 import { useState } from 'react';
 import { ChakraProvider, Textarea, Button } from '@chakra-ui/react'
+import cookie from 'react-cookies'
 
 import {generateIcsData} from './scrape.js'
 
 
 function App() {
-
-  // state variable for urls
-  const [urls, setUrls] = useState([]);
-
-  const parseAndSetUrls = (text) => {
+  
+  const cookieValue = cookie.load('calendarUrls');
+  // console.log({cookieValue})
+  const [inputText, setInputText] = useState(cookieValue ? cookieValue.join(', ') : []);
+  
+  const parseUrls = (text) => {
     const newUrls = text.split(/[\n,\s]/).map(url => url.trim()).filter(url => url.length > 0);
-    // console.log(newUrls);
-    setUrls(newUrls);
+    return newUrls
   }
 
   const generateIcsEvents = async () => {
+    // console.log({inputText})
+    const urls = parseUrls(inputText);
+    cookie.save('calendarUrls', urls);
+    // parseUrls(urls)
+    console.log({urls});
     const icsData = await generateIcsData(urls);
-    console.log(icsData);
+    // console.log(icsData);
     // https://spin.atomicobject.com/2022/03/09/create-export-react-frontend/
 
     // https://spin.atomicobject.com/2022/03/09/create-export-react-frontend/
@@ -39,8 +45,9 @@ function App() {
           <div style={{padding: '40px 0'}}>
             Put in some urls of calendar pages, and we'll generate a combined calendar for you.
           </div>
-          <Textarea style={{ height: 250 }} onChange={event => parseAndSetUrls(event.target.value)}
-            placeholder="Insert calendar page URLs here, separated by commas or line breaks" />
+          <Textarea style={{ height: 250 }} onChange={event => setInputText(event.target.value)} 
+            placeholder="Insert calendar page URLs here, separated by commas or line breaks"
+            defaultValue={inputText} />
           <div style={{padding: '20px 0'}}>
             <Button colorScheme="green" size="lg" onClick={generateIcsEvents}>
               Generate
