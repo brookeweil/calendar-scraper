@@ -1,0 +1,7 @@
+Take this source URL and HTML of an events page and extract a list of events with the event name, date in YYYY-MM-DD format, and url link for more information. HTML unencode any text in the results if needed. For the URL links, if they are relative URLs, use the source URL to make them absolute URLs.  Give the results as JSON, with the keys "eventName", "urlLink",  "date"
+
+Here is the source URL:
+https://www.annsheart.org/index.php/about/news-events
+
+Here is the HTML:
+{{ HTML }}
