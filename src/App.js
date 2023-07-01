@@ -41,9 +41,9 @@ function App() {
   return (
     <ChakraProvider>
       <div className="App" style={{ display: 'flex', justifyContent: 'center' }}>
-        {process.env.NODE_ENV === 'development' &&  <Heading color='orange'>DEV</Heading>}
         <div style={{ minWidth: 400, maxWidth: 800, width: '80%' }}>
           <div style={{padding: '40px 0'}}>
+            {process.env.NODE_ENV === 'development' &&  <Heading color='orange'>DEV</Heading>}
             Put in some urls of calendar pages, and we'll generate a combined calendar for you.
           </div>
           <Textarea style={{ height: 250 }} onChange={event => setInputText(event.target.value)} 

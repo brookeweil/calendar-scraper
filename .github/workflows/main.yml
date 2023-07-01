@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - run: echo ${{ secrets }}
+    - run: echo ${{ secrets.REACT_APP_GPT_KEY }}
 
     - name: Deploy react app to github pages
       uses: tanwanimohit/deploy-react-to-ghpages@v1.0.1
