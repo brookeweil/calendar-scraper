@@ -36,6 +36,7 @@ function App() {
     link.click();
   }
 
+  console.log({key: process.env.REACT_APP_GPT_KEY.substring(0, 3)}) 
 
   return (
     <ChakraProvider>
