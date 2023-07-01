@@ -37,7 +37,6 @@ function App() {
   }
 
 
-
   return (
     <ChakraProvider>
       <div className="App" style={{ display: 'flex', justifyContent: 'center' }}>
@@ -49,7 +48,7 @@ function App() {
             placeholder="Insert calendar page URLs here, separated by commas or line breaks"
             defaultValue={inputText} />
           <div style={{padding: '20px 0'}}>
-            <Button colorScheme="green" size="lg" onClick={generateIcsEvents}>
+            <Button colorScheme="green" size="lg" onClick={generateIcsEvents} isDisabled={!inputText}>
               Generate
             </Button>
           </div>
