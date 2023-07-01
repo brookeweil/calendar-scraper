@@ -1,6 +1,6 @@
 import './App.css';
 import { useState } from 'react';
-import { ChakraProvider, Textarea, Button } from '@chakra-ui/react'
+import { ChakraProvider, Textarea, Button, Heading } from '@chakra-ui/react'
 import cookie from 'react-cookies'
 
 import {generateIcsData} from './scrape.js'
@@ -37,10 +37,12 @@ function App() {
   }
 
   console.log({environment: process.env}) 
+  console.log({secrets: process.env}) 
 
   return (
     <ChakraProvider>
       <div className="App" style={{ display: 'flex', justifyContent: 'center' }}>
+        {process.env.NODE_ENV === 'development' &&  <Heading color='orange'>DEV</Heading>}
         <div style={{ minWidth: 400, maxWidth: 800, width: '80%' }}>
           <div style={{padding: '40px 0'}}>
             Put in some urls of calendar pages, and we'll generate a combined calendar for you.
