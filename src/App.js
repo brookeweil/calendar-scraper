@@ -37,7 +37,6 @@ function App() {
   }
 
   console.log({environment: process.env}) 
-  console.log({secrets: process.env}) 
 
   return (
     <ChakraProvider>
