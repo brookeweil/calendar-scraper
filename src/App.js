@@ -11,6 +11,7 @@ function App() {
   const cookieValue = cookie.load('calendarUrls');
   // console.log({cookieValue})
   const [inputText, setInputText] = useState(cookieValue ? cookieValue.join(', ') : []);
+  const [isResponseLoading, setIsResponseLoading] = useState(false);
   
   const parseUrls = (text) => {
     const newUrls = text.split(/[\n,\s]/).map(url => url.trim()).filter(url => url.length > 0);
@@ -19,6 +20,7 @@ function App() {
 
   const generateIcsEvents = async () => {
     // console.log({inputText})
+    setIsResponseLoading(true);
     const urls = parseUrls(inputText);
     cookie.save('calendarUrls', urls);
     // parseUrls(urls)
@@ -26,7 +28,7 @@ function App() {
     const icsData = await generateIcsData(urls);
     // console.log(icsData);
     // https://spin.atomicobject.com/2022/03/09/create-export-react-frontend/
-
+    
     // https://spin.atomicobject.com/2022/03/09/create-export-react-frontend/
     const blob = new Blob([icsData], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
@@ -34,6 +36,7 @@ function App() {
     link.download = "events.ics";
     link.href = url;
     link.click();
+    setIsResponseLoading(false);
   }
 
   console.log({secret: process.env.REACT_APP_GPT_KEY.substring(0,3)}) 
@@ -50,7 +53,7 @@ function App() {
             placeholder="Insert calendar page URLs here, separated by commas or line breaks"
             defaultValue={inputText} />
           <div style={{padding: '20px 0'}}>
-            <Button colorScheme="green" size="lg" onClick={generateIcsEvents} isDisabled={!inputText}>
+            <Button colorScheme="green" size="lg" onClick={generateIcsEvents} isDisabled={!inputText} isLoading={isResponseLoading}>
               Generate
             </Button>
           </div>
