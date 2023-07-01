@@ -36,7 +36,7 @@ function App() {
     link.click();
   }
 
-  console.log({environment: process.env}) 
+  console.log({secret: process.env.REACT_APP_GPT_KEY.substring(0,3)}) 
 
   return (
     <ChakraProvider>
