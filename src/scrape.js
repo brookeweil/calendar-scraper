@@ -1,79 +1,79 @@
-// const fetch = require('node-fetch');
+const fetch = require('node-fetch');
 const ics = require('ics')
-// const { minify } = require('html-minifier-terser');
-// const sanitizeHtml = require('sanitize-html');
+const { minify } = require('html-minifier-terser');
+const sanitizeHtml = require('sanitize-html');
 
 
-// const scrapeHtml = async (url) => {
-//     const response = await fetch(url, {mode: 'cors'});
-//     const body = await response.text();
-//     // console.log(`html len: ${body.length}}`)
-//     return body;
-// }
+const scrapeHtml = async (url) => {
+    const response = await fetch(url, {mode: 'cors'});
+    const body = await response.text();
+    console.log(`html len: ${body.length}}`)
+    return body;
+}
 
-// const compressHtml = async (html) => {
-//     // https://www.npmjs.com/package/html-minifier-terser
-//     // console.log(html);
-//     console.log(`original html len: ${html.length}}`)
+const compressHtml = async (html) => {
+    // https://www.npmjs.com/package/html-minifier-terser
+    // console.log(html);
+    console.log(`original html len: ${html.length}}`)
     
-//     // https://www.npmjs.com/package//sanitize-html
-//     const cleaned = sanitizeHtml(html, {
-//         // overrides
-//         nonTextTags: [ 
-//             'head', 'aside', 'footer', 'header', 'nav', 'meta',
-//             'style', 'script', 'textarea', 'option', 'noscript' ],
-//         allowedTags: [
-//             "address", "h1", "h2", "h3", "h4", "h5", "h6", 
-//             "hgroup", "main", "section", "blockquote", "dd", // "div",
-//             "dl", "dt", "figcaption", "figure", "hr", "li", "main", "ol", "p", "pre",
-//             "ul", "a", "abbr", "b", "bdi", "bdo", "br", "cite", "code", "data", "dfn",
-//             "em", "i", "kbd", "mark", "q", "rb", "rp", "rt", "rtc", "ruby", "s", "samp",
-//             "small", "strong", "sub", "sup", "time", "u", "var", "wbr", "caption",
-//             "col", "colgroup", "table", "tbody", "td", "tfoot", "th", "thead", "tr"
-//         ],
-//         nonBooleanAttributes: ['*'],
-//         // defaults (https://github.com/apostrophecms/sanitize-html#default-options)
-//         disallowedTagsMode: 'discard',
-//         allowedAttributes: {
-//         a: [ 'href', 'name', 'target' ],
-//         // We don't currently allow img itself by default, but
-//         // these attributes would make sense if we did.
-//         img: [ 'src', 'srcset', 'alt', 'title', 'width', 'height', 'loading' ]
-//         },
-//         // Lots of these won't come up by default because we don't allow them
-//         selfClosing: [ 'img', 'br', 'hr', 'area', 'base', 'basefont', 'input', 'link', 'meta', ],
-//         // URL schemes we permit
-//         allowedSchemes: [ 'http', 'https', 'ftp', 'mailto', 'tel' ],
-//         allowedSchemesByTag: {},
-//         allowedSchemesAppliedToAttributes: [ 'href', 'src', 'cite' ],
-//         allowProtocolRelative: true,
-//         enforceHtmlBoundary: false,
-//         parseStyleAttributes: true
-//     });
-//     // console.log({cleaned})
+    // https://www.npmjs.com/package//sanitize-html
+    const cleaned = sanitizeHtml(html, {
+        // overrides
+        nonTextTags: [ 
+            'head', 'aside', 'footer', 'header', 'nav', 'meta',
+            'style', 'script', 'textarea', 'option', 'noscript' ],
+        allowedTags: [
+            "address", "h1", "h2", "h3", "h4", "h5", "h6", 
+            "hgroup", "main", "section", "blockquote", "dd", // "div",
+            "dl", "dt", "figcaption", "figure", "hr", "li", "main", "ol", "p", "pre",
+            "ul", "a", "abbr", "b", "bdi", "bdo", "br", "cite", "code", "data", "dfn",
+            "em", "i", "kbd", "mark", "q", "rb", "rp", "rt", "rtc", "ruby", "s", "samp",
+            "small", "strong", "sub", "sup", "time", "u", "var", "wbr", "caption",
+            "col", "colgroup", "table", "tbody", "td", "tfoot", "th", "thead", "tr"
+        ],
+        nonBooleanAttributes: ['*'],
+        // defaults (https://github.com/apostrophecms/sanitize-html#default-options)
+        disallowedTagsMode: 'discard',
+        allowedAttributes: {
+        a: [ 'href', 'name', 'target' ],
+        // We don't currently allow img itself by default, but
+        // these attributes would make sense if we did.
+        img: [ 'src', 'srcset', 'alt', 'title', 'width', 'height', 'loading' ]
+        },
+        // Lots of these won't come up by default because we don't allow them
+        selfClosing: [ 'img', 'br', 'hr', 'area', 'base', 'basefont', 'input', 'link', 'meta', ],
+        // URL schemes we permit
+        allowedSchemes: [ 'http', 'https', 'ftp', 'mailto', 'tel' ],
+        allowedSchemesByTag: {},
+        allowedSchemesAppliedToAttributes: [ 'href', 'src', 'cite' ],
+        allowProtocolRelative: true,
+        enforceHtmlBoundary: false,
+        parseStyleAttributes: true
+    });
+    // console.log({cleaned})
     
-//     const result = await minify(cleaned, {
-//         collapseWhitespace: true,
-//         minifyCSS: true,
-//         minifyJS: true,
-//         processConditionalComments: true,
-//         removeComments: true,
-//         removeEmptyAttributes: true,
-//         removeEmptyElements: true,
-//         removeOptionalTags: true,
-//         removeRedundantAttributes: true,
-//         removeScriptTypeAttributes: true,
-//         removeStyleLinkTypeAttributes: true,
-//         removeAttributeQuotes: true,
-//     });
-//     console.log(`\n\ncompressed:\n\n${result}\n\n`)
-//     console.log(`cleaned html type: ${typeof cleaned}}`)
-//     console.log(`cleaned html len: ${cleaned.length}}`)
-//     console.log(`compressed html len: ${result.length}}`)
-//     return result;
+    const result = await minify(cleaned, {
+        collapseWhitespace: true,
+        minifyCSS: true,
+        minifyJS: true,
+        processConditionalComments: true,
+        removeComments: true,
+        removeEmptyAttributes: true,
+        removeEmptyElements: true,
+        removeOptionalTags: true,
+        removeRedundantAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        removeAttributeQuotes: true,
+    });
+    console.log(`\n\ncompressed:\n\n${result}\n\n`)
+    console.log(`cleaned html type: ${typeof cleaned}}`)
+    console.log(`cleaned html len: ${cleaned.length}}`)
+    console.log(`compressed html len: ${result.length}}`)
+    return result;
 
 
-// }
+}
 
 // const formatPrompt = async (url, html) => {
 //     let prompt = `Take this source URL and HTML of an events page and extract a list of events with the event name, date in YYYY-MM-DD format, and url link for more information. HTML unencode any text in the results if needed. For the URL links, if they are relative URLs, use the source URL to make them absolute URLs.  Give the results as JSON, with the keys "eventName", "urlLink",  "date"`
@@ -132,9 +132,9 @@ const formatIcsData = async (events) => {
 export const generateIcsData = async (urls) => {
     const allEvents = []
     for (const url of urls) {
-        // const html = await scrapeHtml(url)
-        // const compressedHtml = await compressHtml(html)
-        const compressedHtml = null
+        const html = await scrapeHtml(url)
+        const compressedHtml = await compressHtml(html)
+        // const compressedHtml = null
         const events = await extractEvents(url, compressedHtml)
         allEvents.push(...events)
     }
