@@ -2,6 +2,11 @@ const fetch = require('node-fetch');
 const ics = require('ics')
 const { minify } = require('html-minifier-terser');
 const sanitizeHtml = require('sanitize-html');
+const { Configuration, OpenAIApi } = require("openai");
+
+const openai = new OpenAIApi(new Configuration({
+    apiKey: process.env.REACT_APP_GPT_KEY,
+}));
 
 
 const scrapeHtml = async (url) => {
@@ -75,19 +80,44 @@ const compressHtml = async (html) => {
 
 }
 
-// const formatPrompt = async (url, html) => {
-//     let prompt = `Take this source URL and HTML of an events page and extract a list of events with the event name, date in YYYY-MM-DD format, and url link for more information. HTML unencode any text in the results if needed. For the URL links, if they are relative URLs, use the source URL to make them absolute URLs.  Give the results as JSON, with the keys "eventName", "urlLink",  "date"`
-//     prompt += `Here is the source URL:\n${url}\n`
-//     prompt += `Here is the HTML:\n${html}`
-//     return prompt
-// }
+const formatPrompt = (url, html) => {
+    let prompt = `Take this source URL and HTML of an events page and extract a list of events with the event name, date in YYYY-MM-DD format, and url link for more information. HTML unencode any text in the results if needed. For the URL links, if they are relative URLs, use the source URL to make them absolute URLs.  Give the results as JSON, with the keys "eventName", "urlLink",  "date".\n`
+    prompt += `Here is the source URL:\n${url}\n`
+    prompt += `Here is the HTML:\n  ${html}`
+    console.log({prompt});
+    return prompt
+}
 
-// const sendGptRequest = async (prompt) => {
-//     return 'TODO sendGptRequest'
-// }
+const sendGptRequest = async (prompt) => {
+    console.log(`got prompt: ${prompt}}`)
+    let completion = null;
+
+    try {
+        completion = await openai.createCompletion({
+            model: "text-davinci-003",
+            max_tokens: 100,
+            prompt: prompt,
+            temperature: 0,
+        });
+    } catch (error) {
+        if (error.response) {
+          console.log(error.response.status);
+          console.log(error.response.data);
+        } else {
+          console.log(error.message);
+        }
+    }
+    console.log({completion});
+
+    const response = completion.data.choices[0].text;
+    const tokens = completion.data.usage.total_tokens;
+    console.log({completion, response, cost: `\$${(tokens * .02 / 1000).toFixed(2)}` });
+    return response;
+}
 
 const extractEvents = async (url, html) => {
-    // const prompt = formatPrompt(url, html);
+    const prompt = formatPrompt(url, html);
+    await sendGptRequest(prompt);
     // const gptResponse = await sendGptRequest(prompt);
     const gptResponse = 
     [
