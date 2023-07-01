@@ -9,7 +9,6 @@ import {generateIcsData} from './scrape.js'
 function App() {
   
   const cookieValue = cookie.load('calendarUrls');
-  // console.log({cookieValue})
   const [inputText, setInputText] = useState(cookieValue ? cookieValue.join(', ') : []);
   const [isResponseLoading, setIsResponseLoading] = useState(false);
   
@@ -19,27 +18,21 @@ function App() {
   }
 
   const generateIcsEvents = async () => {
-    // console.log({inputText})
     setIsResponseLoading(true);
     const urls = parseUrls(inputText);
     cookie.save('calendarUrls', urls);
-    // parseUrls(urls)
-    console.log({urls});
     const icsData = await generateIcsData(urls);
-    // console.log(icsData);
-    // https://spin.atomicobject.com/2022/03/09/create-export-react-frontend/
-    
-    // https://spin.atomicobject.com/2022/03/09/create-export-react-frontend/
-    const blob = new Blob([icsData], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.download = "events.ics";
-    link.href = url;
-    link.click();
+    if (icsData) {
+      // https://spin.atomicobject.com/2022/03/09/create-export-react-frontend/
+      const blob = new Blob([icsData], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.download = "events.ics";
+      link.href = url;
+      link.click();
+    }
     setIsResponseLoading(false);
   }
-
-  console.log({secret: process.env.REACT_APP_GPT_KEY.substring(0,3)}) 
 
   return (
     <ChakraProvider>
