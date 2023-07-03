@@ -1,8 +1,8 @@
-const fetch = require('node-fetch');
-const ics = require('ics')
-const { minify } = require('html-minifier-terser');
-const sanitizeHtml = require('sanitize-html');
-const { Configuration, OpenAIApi } = require('openai');
+import fetch from 'node-fetch';
+import ics from 'ics';
+import { minify } from 'html-minifier-terser';
+import sanitizeHtml from 'sanitize-html';
+import { Configuration, OpenAIApi } from 'openai';
 
 const openai = new OpenAIApi(new Configuration({
     apiKey: process.env.REACT_APP_GPT_KEY,
@@ -154,4 +154,4 @@ export const generateIcsData = async (urls) => {
     return allEvents.length ? formatIcsData(allEvents) : null;
 }
 
-// exports.generateIcsData = generateIcsData
+// module.exports.generateIcsData = generateIcsData

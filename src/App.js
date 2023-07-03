@@ -3,8 +3,9 @@ import { useState } from 'react';
 import { ChakraProvider, Textarea, Button, Heading } from '@chakra-ui/react'
 import cookie from 'react-cookies'
 
-import {generateIcsData} from './scrape.js'
+// import {generateIcsData} from './scrape.js'
 
+console.log({apiUrl: process.env.REACT_APP_LAMDA_URL})
 
 function App() {
   
@@ -21,7 +22,8 @@ function App() {
     setIsResponseLoading(true);
     const urls = parseUrls(inputText);
     cookie.save('calendarUrls', urls);
-    const icsData = await generateIcsData(urls);
+    // const icsData = await generateIcsData(urls);
+    const icsData = null;
     if (icsData) {
       // https://spin.atomicobject.com/2022/03/09/create-export-react-frontend/
       const blob = new Blob([icsData], { type: "text/plain" });

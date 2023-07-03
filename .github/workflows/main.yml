@@ -17,4 +17,4 @@ jobs:
     - name: Deploy react app to github pages
       uses: tanwanimohit/deploy-react-to-ghpages@v1.0.1
       env:
-        REACT_APP_GPT_KEY: ${{ secrets.REACT_APP_GPT_KEY }}
+        REACT_APP_LAMDA_URL: ${{ secrets.REACT_APP_LAMDA_URL }}

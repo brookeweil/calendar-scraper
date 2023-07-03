@@ -22,7 +22,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build && node versionUtil.js",
-    "buildServer": "rm server.zip; cd server && npm i && zip -r ../server.zip index.js package.json package-lock.json node_modules",
+    "buildServer": "rm lamda.zip; cd server && npm i && zip -r ../lamda.zip *.js package.json package-lock.json node_modules",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
