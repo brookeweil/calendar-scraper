@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 
 
-const API_URL = process.env.REACT_APP_LAMDA_URL;
+const API_URL = process.env.REACT_APP_LAMBDA_URL;
 
 export const scrapeIcsEvents = async (urls) => {
     const response = await fetch(

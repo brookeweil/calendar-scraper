@@ -1,6 +1,6 @@
 import { generateIcsData } from './scrape.js';
 
-
+// https://docs.aws.amazon.com/apigateway/latest/developerguide/handle-errors-in-lambda-integration.html
 export const handler = async (event, context) => {
     console.log({event, context});
     const requestBody = JSON.parse(event.body); 

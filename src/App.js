@@ -5,8 +5,6 @@ import cookie from 'react-cookies'
 
 import {scrapeIcsEvents} from './api.js'
 
-console.log({apiUrl: process.env.REACT_APP_LAMDA_URL})
-
 function App() {
   
   const cookieValue = cookie.load('calendarUrls');

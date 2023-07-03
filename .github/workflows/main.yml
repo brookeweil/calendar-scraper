@@ -18,4 +18,4 @@ jobs:
       uses: tanwanimohit/deploy-react-to-ghpages@v1.0.1
       env:
         REACT_APP_AUTH_TOKEN: ${{ secrets.REACT_APP_AUTH_TOKEN }}
-        REACT_APP_LAMDA_URL: ${{ vars.REACT_APP_LAMDA_URL }}
+        REACT_APP_LAMBDA_URL: ${{ vars.REACT_APP_LAMBDA_URL }}
