@@ -7,15 +7,34 @@ export const handler = async (event, context) => {
 
     const path = event.rawPath;
     const query = event.rawQueryString;
+    const token = event.headers['x-auth-token'];
+
+    if (token !== process.env.AUTH_TOKEN) {
+        return {
+            statusCode: 401,
+            body: 'Unauthorized'
+        }
+    }
+
     console.log({requestBody, path, query});
     
+    const headers = {
+        'Access-Control-Allow-Origin': '*'
+    };
+    
+
     switch(path) {
         case '/scrape_events':
             if (Array.isArray(requestBody.urls) && requestBody.urls.length) {
-                const result = generateIcsData(requestBody.urls);
-                return result;
+                const result = await generateIcsData(requestBody.urls);
+                return {
+                    headers,
+                    statusCode: 200,
+                    body: result
+                };
             } else {
                 return {
+                    headers, 
                     statusCode: 400,
                     body: {
                         length: requestBody.urls.length,

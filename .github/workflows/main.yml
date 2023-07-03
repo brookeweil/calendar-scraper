@@ -17,4 +17,5 @@ jobs:
     - name: Deploy react app to github pages
       uses: tanwanimohit/deploy-react-to-ghpages@v1.0.1
       env:
-        REACT_APP_LAMDA_URL: ${{ secrets.REACT_APP_LAMDA_URL }}
+        REACT_APP_AUTH_TOKEN: ${{ secrets.REACT_APP_AUTH_TOKEN }}
+        REACT_APP_LAMDA_URL: ${{ env.REACT_APP_LAMDA_URL }}
