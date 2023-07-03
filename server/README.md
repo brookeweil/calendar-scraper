@@ -1,3 +1,3 @@
-# To package server for deployment to AWS Lamda
+# To package server for deployment to AWS Lambda
 
-From the root of this repository, run `npm run buildServer`. The output `server.zip` can be uploaded into the Lamda console.
+From the root of this repository, run `npm run buildServer`. The output `server.zip` can be uploaded into the Lambda console.
