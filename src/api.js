@@ -2,7 +2,6 @@ import fetch from 'node-fetch';
 
 
 const API_URL = process.env.REACT_APP_API_GATEWAY_URL;
-console.log({API_URL});
 
 export const scrapeIcsEvents = async (urls) => {
     const response = await fetch(
@@ -11,14 +10,17 @@ export const scrapeIcsEvents = async (urls) => {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify({urls}),
-            // headers: {'Content-Type': 'application/json'},
-            // origin: 'https://brookeweil.github.io/calendar-scraper/'
+            headers: {
+                'Content-Type': 'application/json', 
+                'X-Auth-Token': process.env.REACT_APP_AUTH_TOKEN
+            },
         }
     )
-    if (response.code === 200) {
-        return response.body;
+    const body = await response.text();
+    if (response.status === 200) {
+        return body;
     } else {
-        alert(response.body);
+        alert(body);
         return null;
     }
 }
