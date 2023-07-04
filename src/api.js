@@ -14,6 +14,7 @@ export const scrapeIcsEvents = async (urls) => {
                 'Content-Type': 'application/json', 
                 'X-Auth-Token': process.env.REACT_APP_AUTH_TOKEN
             },
+            timeout: 120000 // 2m in ms
         }
     )
     const body = await response.text();

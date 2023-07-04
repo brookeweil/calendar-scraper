@@ -139,20 +139,16 @@ const formatIcsData = (events) => {
     return value
 }
 
-// const generateIcsData = async (urls) => {
+const generateEventsFromUrl = async (url) => {
+    const html = await scrapeHtml(url)
+    const compressedHtml = await compressHtml(html)
+    return extractEvents(url, compressedHtml)
+}
+
 export const generateIcsData = async (urls) => {
     console.log(`Getting events for urls: ${urls}`)
-    const allEvents = []
-    for (const url of urls) {
-        const html = await scrapeHtml(url)
-        const compressedHtml = await compressHtml(html)
-        // const compressedHtml = null
-        const events = await extractEvents(url, compressedHtml)
-        if (events) {
-            allEvents.push(...events)
-        }
-    }
+    const scrapedEvents = await Promise.all(urls.map(generateEventsFromUrl))
+    const allEvents = [].concat(...scrapedEvents);
     return allEvents.length ? formatIcsData(allEvents) : null;
 }
 
-// module.exports.generateIcsData = generateIcsData
