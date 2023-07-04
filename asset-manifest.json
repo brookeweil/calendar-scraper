@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/calendar-scraper/static/css/main.073c9b0a.css",
+    "main.js": "/calendar-scraper/static/js/main.b55a3968.js",
+    "index.html": "/calendar-scraper/index.html",
+    "main.073c9b0a.css.map": "/calendar-scraper/static/css/main.073c9b0a.css.map",
+    "main.b55a3968.js.map": "/calendar-scraper/static/js/main.b55a3968.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.b55a3968.js"
+  ]
+}
