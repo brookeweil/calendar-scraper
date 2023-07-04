@@ -127,6 +127,7 @@ const formatIcsData = (events) => {
         start: [...date.split("-"), '0', '0'].map(v => parseInt(v)), // split YYYY-MM-DD and add 00:00 time
         duration: { days: 1 },
         url,
+        startOutputType: 'local',
     })
     const icsInputs = events.map(({ eventName, date, urlLink }) => formatIcsInput(eventName, date, urlLink))
 
